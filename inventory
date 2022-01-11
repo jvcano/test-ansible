@@ -1,3 +1,7 @@
+[debian:children]
+pi4 
+pi3
+
 [fleet:children]
 pi4
 laptop
@@ -10,4 +14,4 @@ pi3
 10.10.10.62 asnsible_ssh_user=mimir
 
 [pi3]
-10.10.10.64 ansible_ssh_user=pi
+10.10.10.64 ansible_ssh_user=mimir
