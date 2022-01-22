@@ -5,30 +5,30 @@
   tasks:
 
 
-  - name: install apache2 package
-    apt:
-      name: apache2
+  - name: install apache2 package Debian
+    package:
+      name: 
+        - apache2
+        - libapache2-mod-php
+        - nano
       state: latest
     when: ansible_distribution == "Debian"
   
 
-  - name: remove vim package
-    apt:
-      name: vim
+  - name: remove vim package Debian
+    package:
+      name: nano 
       state: absent
-    when: ansible_distribution == "Debian"
+    
 
 
-  - name: Install the latest version of Apache
+  - name: Install the latest version of Apache Centos
     yum:
-      name: httpd
+      name: 
+        - httpd
+        - php 
+        - python-pip
       state: latest  
-    when: ansible_distribution == "CentOS"  
+    when: ansible_distribution == "CentOS"
 
-
-  - name: remove vim package
-    yum:
-      name: vim
-      state: absent
-    when: ansible_distribution == "CentOS"    
 ...

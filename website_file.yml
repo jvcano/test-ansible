@@ -1,0 +1,38 @@
+---
+
+- hosts: laptop
+  become: yes
+  tasks:
+  
+  - name: latest Apache version installed
+    yum:
+      name: httpd
+      state: latest
+
+
+  - name: Apache enabled and running
+    service:
+      name: httpd
+      enabled: true
+      state: started
+
+  - name: Clone a github repository
+    git:
+      repo: https://github.com/jvcano/Resume-cv.git
+      dest: /var/www/html/
+      clone: yes
+      update: yes
+
+  - name: Open port 80 for http access
+    firewalld:
+      service: http
+      permanent: true
+      state: enabled
+      
+      
+  - name: Restart the firewalld service to load in the firewall changes
+    service: 
+      name: firewalld 
+      state: restarted    
+
+...

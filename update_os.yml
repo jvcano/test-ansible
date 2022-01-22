@@ -1,0 +1,24 @@
+---
+
+- hosts: fleet
+  become: true
+  tasks:
+
+
+  - name: upgrade the OS
+    package:
+      upgrade: dist
+    when: ansible_distribution == "Debian"
+
+  - name: Remove dependencies that are no longer required
+    package:
+     autoremove: yes
+    when: ansible_distribution == "Debian"
+
+  - name: Upgrade all packages
+    yum:
+     name: '*'
+     state: latest
+    when: ansible_distribution == "CentOS"
+
+...
