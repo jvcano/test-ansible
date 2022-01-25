@@ -4,8 +4,27 @@
   become: yes
   tasks:
   
+  - name: Delete content & directory
+    file:
+      state: absent
+      path: /var/www/html
+
+
+  - name: Install Git
+    package:
+      name: git
+      state: latest
+
+  - name: Clone a github repository
+    git:
+      repo: https://github.com/jvcano/WEB.git
+      dest: /var/www/html/
+      clone: yes
+      update: yes
+
+  
   - name: latest Apache version installed
-    yum:
+    package:
       name: apache2
       state: latest
 
@@ -14,33 +33,8 @@
     service:
       name: apache2
       enabled: true
-      state: started
-
-  - name: Install Git
-    package:
-      name: git
-      state: latest
+      state: reloaded
 
 
-  - name: Delete content & directory
-    file:
-      state: absent
-      path: /var/www/html
-
-
-  - name: Clone a github repository
-    git:
-      repo: https://github.com/jvcano/Resume-cv.git
-      dest: /var/www/html/
-      clone: yes
-      update: yes
-
-  - name: Open port 80 for http access
-    firewalld:
-      service: http
-      permanent: true
-      state: enabled
-      
-  
 
 ...

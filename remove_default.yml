@@ -1,0 +1,24 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+  
+
+
+  - name: Delete content & directory
+    file:
+      state: absent
+      path: /var/www/html
+
+  - name: Restart the httpd service on debian
+    package: 
+      name: apache2 
+      state: absent 
+    when: ansible_distribution == "Debian"
+      
+  - name: Restart the httpd service to load in the firewall changes
+    package: 
+      name: httpd 
+      state: absent    
+    when: ansible_distribution == "CentOS"
